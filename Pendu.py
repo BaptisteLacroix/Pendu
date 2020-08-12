@@ -99,20 +99,30 @@ def display(mot):
     Affiche les "_" pour représenter les lettres du mot et le nombre d'essais restants.
     :return:
     """
-    mot_deviner = "_" * len(mot)
-    return mot_deviner
+    mot_deviner = ["_" * len(mot)]
+    # mot_affiche = mot_deviner[0]
+    print(mot_deviner)
 
 
-def info(lettre: str, mot: str) -> None:
+def info(mot: str) -> None:
     """
-    Dis si coup raté ou réussi
-    et affiche le nombre de coups restants
+
+    :param mot:
     :return:
     """
+    mot_remplace = display(mot)
+    lettres_trouvees = []  # contient les lettres trouvées
+    lettres_jouees = []  # contient les lettres jouées
+    lettre = input_letter()
+
     if lettre in mot:
-        mot_trou = str.replace
+        lettres_trouvees.append(lettre)
+        lettres_jouees.append(lettre)
+        for lettre in range(mot):
+            mot_remplace.append(lettre)
         print("Réussi !")
     else:
+        lettres_jouees.append(lettre)
         print("Raté !")
 
 
@@ -126,21 +136,39 @@ def check():
 
 
 def main():
+    lettres_jouees = []
+    mot_remplace = []
     noms = listenoms(table)
-    motMajuscule = metenmajuscule(noms)
-    motRandom = choix_mot(motMajuscule)
-    # print(motRandom)
-    print(display(motRandom))
-    nbr_essaies = 8
-    print('il reste', nbr_essaies, "essaies")
-    lettre_choisi = input_letter()
+    mot_majuscule = metenmajuscule(noms)
+    mot_random = choix_mot(mot_majuscule)
+    print(mot_random)
 
-    while 1+1:
+    max_lettres = 8
+
+    while len(lettres_jouees) < max_lettres or mot_remplace != mot_random:
+        print(display(mot_random))
+        nbr_essaies = 8
+        print('il reste', nbr_essaies, "essaies")
+        lettre_choisi = input_letter()
+        lettres_jouees.append(lettre_choisi)
+        print(lettres_jouees)
+        nbr_essaies -= 1
         pass
 
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
+
+
+
+
 
 """
 class Pendu:
@@ -149,7 +177,7 @@ class Pendu:
         pass
 
     def play(self, mot: str) -> None:
-        
+
         Lance la partie.
         Actions à effectuer:
             - Afficher les "_" : display
@@ -160,31 +188,31 @@ class Pendu:
         :return:
         :param mot: mot à découvrir
         :return:
-        
+
         pass
 
     def display(self):
-        
+
         Affiche les "_" pour représenter les lettres du mot et le nombre d'essais restants.
         :return:
-        
+
         for i in range(len(motRandom)):
             mot_cache = "_" + i
         print(mot_cache)
 
     def info(self):
-        
+
         Dis si coup raté ou réussi
         et afficher le nombre de coups restants
         :return:
-        
+
         pass
 
     def check(self):
-        
+
         Afficher si l'utilisateur a gagné ou perdu
         :return:
-        
+
         pass
 
 

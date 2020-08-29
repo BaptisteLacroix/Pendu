@@ -1,2 +1,2 @@
 # Pendu
-Make Pendu game in python
+A simple **hangman** game in python.

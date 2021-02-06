@@ -4,7 +4,7 @@ import csv  # on peut aussi utiliser from csv import *
 import random
 from typing import List
 
-f = open("liste.de.mots.francais.frgut.csv", "r")
+f = open("liste-demots.csv", "r")
 
 table = list(csv.reader(f, delimiter=';'))  # par défaut le délimiteur est la virgule
 

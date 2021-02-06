@@ -4,12 +4,9 @@ import csv  # on peut aussi utiliser from csv import *
 import random
 from typing import List
 
-f = open("liste.de.mots.francais.frgut.csv", "r")
+f = open("liste-demots.csv", "r")
 
 table = list(csv.reader(f, delimiter=';'))  # par défaut le délimiteur est la virgule
-
-
-# print("table : ", table)
 
 
 def listenoms(table):
@@ -76,7 +73,7 @@ def main(mot):
     lettres_jouees = []  # contient les lettres jouées
     nbr_lettres_trouvees = 0  # contient le nombre de lettres trouvées
 
-    liste_cherchee = ['_' for i in range(len(liste_lettre))]
+    liste_cherchee = ['_' for _ in range(len(liste_lettre))]
 
     # print(mot_random)
     coups_perdus = 0
@@ -92,9 +89,11 @@ def main(mot):
 
         print('il reste', nbr_essaies, "essaies")
 
-        lettre = str(input("Entrer une lettre en MAJUSCULE : "))
+        lettre = str(input("Entrer une lettre : "))
+        lettre = lettre.upper()
         while lettre != lettre.upper() or len(lettre) != 1 or lettre in lettres_jouees:
-            lettre = str(input("Entrer une lettre en MAJUSCULE : "))
+            lettre = str(input("Entrer une lettre : "))
+            lettre = lettre.upper()
 
         if lettre in mot_random:
             lettres_jouees.append(lettre)
@@ -113,6 +112,7 @@ def main(mot):
 
     if coups_perdus >= coups_perdus_max:
         print("Perdu !")
+        print(mot_random)
     else:
         print("Gagné !")
 

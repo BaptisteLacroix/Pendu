@@ -64,6 +64,7 @@ def affiche_mot(liste):
     mot = ''
     for i in liste:  # on parcourt la liste
         mot += i  # on ajoute chaque caractère au mot
+        print("mottttttttttttttt")
     print(mot)
 
 
@@ -74,6 +75,7 @@ def main(mot):
     nbr_lettres_trouvees = 0  # contient le nombre de lettres trouvées
 
     liste_cherchee = ['_' for _ in range(len(liste_lettre))]
+    # print(liste_cherchee)
 
     # print(mot_random)
     coups_perdus = 0

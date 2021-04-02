@@ -12,13 +12,13 @@ table = list(csv.reader(f, delimiter=';'))  # par défaut le délimiteur est la 
 # print("table : ", table)
 
 
-def listenoms(table):
+def listenoms(tableau):
     """
 
-    :param table:
+    :param tableau:
     :return:
     """
-    return [value[0] for value in table[1:]]
+    return [value[0] for value in tableau[1:]]
 
 
 def remove_accents(mot: str) -> str:
@@ -66,18 +66,21 @@ class Pendu:
 
     def __init__(self):
         self.mot = ''
-        self.liste_lettre = list(self.random_word())
+        self.liste_lettre = list(self.pick_random_word())
         self.lettres_jouees = []
         self.nbr_lettres_trouvees = 0  # contient le nombre de lettres trouvées
         self.coups_perdus = 0
         self.nbr_essaies = 8
+        self.liste_cherchee = ['_' for i in range(len(self.liste_lettre))]
 
-    def random_word(self) -> str:
+    @staticmethod
+    def pick_random_word() -> str:
         """
         Renvoie un mot choisi aléatoirement
         :return: le mot choisi
         """
         noms = listenoms(table)
+        # print(noms)
         mot_random = choix_mot(noms)
         mot_minuscule_sans_accents = remove_accents(mot_random)
         mot_majuscule = metenmajuscule(mot_minuscule_sans_accents)
@@ -93,12 +96,13 @@ class Pendu:
         Afficher si l'utilisateur a gagné ou perdu
         :return:
         """
-        if self.lettre in self.random_word():
+        if self.lettre in self.liste_lettre:
             self.lettres_jouees.append(self.lettre)
             for i in range(len(self.liste_lettre)):
                 if self.lettre == self.liste_lettre[i]:
                     self.liste_cherchee[i] = self.lettre  # remplace les '_' par les lettres trouvées
                     self.nbr_lettres_trouvees += 1
+                    self.mot = "".join(self.liste_cherchee)
             print("Réussi !")
         else:
             self.lettres_jouees.append(self.lettre)
@@ -108,20 +112,19 @@ class Pendu:
 
     def info(self):
         """
-        Dis si coup raté ou réussi
-        et afficher le nombre de coups restants
+        Informe si il y a un caractère spécial
         :return:
         """
-        if Pendu.lettre1 in self.random_word() or Pendu.lettre2 in self.random_word():
+        if Pendu.lettre1 in self.liste_lettre or Pendu.lettre2 in self.liste_lettre:
             print("Attention il y a soit un '-' soit un '©' ;-)")
 
-    def affiche_mot(self, liste):
+    def affiche_mot(self):
         """
 
         :param liste:
         :return:
         """
-        for i in liste:  # on parcourt la liste
+        for i in self.liste_cherchee:  # on parcourt la liste
             self.mot += i  # on ajoute chaque caractère au mot
         print(self.mot)
 
@@ -136,16 +139,15 @@ class Pendu:
             - Afficher si gagné ou perdu : check
         :return:
         """
-        mot = self.random_word()
-        self.liste_cherchee = ['_' for i in range(len(self.liste_lettre))]
+        mot = "".join(self.liste_lettre)
         print(mot)
-        self.affiche_mot(self.liste_cherchee)
+        self.affiche_mot()
         while self.nbr_lettres_trouvees < len(mot) and self.coups_perdus < Pendu.coups_perdus_max:
             self.info()
             print('il reste', self.nbr_essaies, "essaies")
             self.asking()
             self.check()
-            self.affiche_mot(self.liste_cherchee)
+            print(self.mot)
 
         if self.coups_perdus >= self.coups_perdus_max:
             print("Perdu ! Le mot était", mot)

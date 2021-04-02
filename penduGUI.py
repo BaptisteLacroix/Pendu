@@ -1,5 +1,5 @@
 from penduClass import Pendu
-from tkinter import *
+import tkinter
 
 
 # TODO: voir heritage Tk
@@ -8,7 +8,7 @@ class PenduGUI(Pendu):
 
     def __init__(self):
         super().__init__()
-        self.window = Tk()
+        self.window = tkinter.Tk()
         self.configure_display()
 
     def configure_display(self):
